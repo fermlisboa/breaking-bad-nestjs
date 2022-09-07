@@ -1,0 +1,42 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
+// https://github.com/microsoft/vscode-dev-containers/tree/v0.187.0/containers/javascript-node-postgres
+// Update the VARIANT arg in docker-compose.yml to pick a Node.js version: 10, 12, 14 
+{
+	"name": "Breaking Bad API - (Fernando Lisboa)",
+	"dockerComposeFile": "docker-compose.yml",
+	"service": "app",
+	"workspaceFolder": "/workspace",
+
+	// Set *default* container specific settings.json values on container create.
+	"settings": {
+		"sqltools.connections": [{
+			"name": "Application database",
+			// "driver": "MariaDB",
+			"driver": "Postgres",
+			"previewLimit": 50,
+			"server": "localhost",
+			// "port": 3306,
+			"port": 5432,
+			"database": "breakingbad",
+			"username": "walter",
+			"password": "heisenberg"
+		}]
+	},
+
+	// Add the IDs of extensions you want installed when the container is created.
+	"extensions": [
+		"dbaeumer.vscode-eslint",
+		"ms-vscode-remote.remote-containers",
+    "davidanson.vscode-markdownlint",
+		"editorconfig.editorconfig"
+	],
+  
+	// Use 'forwardPorts' to make a list of ports inside the container available locally.
+	// "forwardPorts": [3000],
+
+	// Use 'postCreateCommand' to run commands after the container is created.
+	"postCreateCommand": "yarn install",
+
+	// Comment out connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
+	"remoteUser": "node"
+}
