@@ -14,7 +14,7 @@ export class Characters {
     example: 1,
   })
   @PrimaryGeneratedColumn('increment')
-  char_id: number;
+  id: number;
 
   @ApiProperty({
     description: "A character's full name",
@@ -148,7 +148,7 @@ export class Characters {
   deleted_at: Date;
 
   constructor(character?: Partial<Characters>) {
-    this.char_id = character?.char_id;
+    this.id = character?.id;
     this.name = character?.name;
     this.birthday = character?.birthday;
     this.occupation = character?.occupation;

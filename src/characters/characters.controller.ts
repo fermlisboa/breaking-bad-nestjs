@@ -45,6 +45,11 @@ export class CharactersController {
   @ApiResponse({ status: HttpStatus.CREATED, type: Characters })
   @Post()
   async create(@Body() char: CharacterCreateType): Promise<string | Characters> {
+    const characterAlreadyExists = await this.characterService.findOne(char.name);
+    console.log(characterAlreadyExists);
+    if (characterAlreadyExists) {
+      return `You already register ${char.name}`;
+    }
     const character = await this.characterService.findByName(char.name);
     if (Object.keys(character).length === 0) {
       return `We don't have any ${char.name} in this show`;
@@ -66,14 +71,14 @@ export class CharactersController {
   }
 
   @ApiResponse({ status: HttpStatus.OK, type: DeleteResult })
-  @Delete(':char_id')
-  async remove(@Param('char_id') char_id: string): Promise<DeleteResult> {
-    return this.characterService.remove(char_id);
+  @Delete(':id')
+  async remove(@Param('id') id: string): Promise<DeleteResult> {
+    return this.characterService.remove(id);
   }
 
   @ApiResponse({ status: HttpStatus.OK, type: DeleteResult })
-  @Delete('delete/:char_id')
-  async hardDelete(@Param('char_id') char_id: string): Promise<DeleteResult> {
-    return this.characterService.hardDelete(char_id);
+  @Delete('delete/:id')
+  async hardDelete(@Param('id') id: string): Promise<DeleteResult> {
+    return this.characterService.hardDelete(id);
   }
 }

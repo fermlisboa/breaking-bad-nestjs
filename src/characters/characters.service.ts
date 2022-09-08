@@ -23,6 +23,10 @@ export class CharactersService {
     return this.repository.find();
   }
 
+  findOne(name: string): Promise<Characters> {
+    return this.repository.findOne({ where: { name } });
+  }
+
   create(character: Characters): Promise<Characters> {
     return this.repository.save(character);
   }
