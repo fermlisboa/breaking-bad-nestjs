@@ -7,7 +7,7 @@ import { CharacterCreateType } from './dto/charactersCreateType';
 
 const findCharacter: Characters[] = [
   new Characters({
-    id: 1,
+    char_id: 1,
     name: 'Walter White',
     birthday: '09/01/1996',
     occupation: ['High School Chemistry Teacher', 'Meth King Pin'],
@@ -23,7 +23,7 @@ const findCharacter: Characters[] = [
 
 const completeCharacter: Characters[] = [
   new Characters({
-    id: 1,
+    char_id: 1,
     name: 'Walter White',
     birthday: '09/01/1996',
     occupation: ['High School Chemistry Teacher', 'Meth King Pin'],
@@ -40,7 +40,7 @@ const completeCharacter: Characters[] = [
 
 const characterList: Characters[] = [
   new Characters({
-    id: 1,
+    char_id: 1,
     name: 'Walter White',
     birthday: '09-07-1958',
     occupation: ['High School Chemistry Teacher', 'Meth King Pin'],
@@ -54,7 +54,7 @@ const characterList: Characters[] = [
     episodes: ['1,2,3,4,5,6,7,8,9,10'],
   }),
   new Characters({
-    id: 2,
+    char_id: 2,
     name: 'Jesse Pinkman',
     birthday: '09-24-1984',
     occupation: ['Meth Dealer'],

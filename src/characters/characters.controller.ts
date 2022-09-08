@@ -71,14 +71,14 @@ export class CharactersController {
   }
 
   @ApiResponse({ status: HttpStatus.OK, type: DeleteResult })
-  @Delete(':id')
-  async remove(@Param('id') id: string): Promise<DeleteResult> {
-    return this.characterService.remove(id);
+  @Delete(':char_id')
+  async remove(@Param('char_id') char_id: string): Promise<DeleteResult> {
+    return this.characterService.remove(char_id);
   }
 
   @ApiResponse({ status: HttpStatus.OK, type: DeleteResult })
-  @Delete('delete/:id')
-  async hardDelete(@Param('id') id: string): Promise<DeleteResult> {
-    return this.characterService.hardDelete(id);
+  @Delete('delete/:char_id')
+  async hardDelete(@Param('char_id') char_id: string): Promise<DeleteResult> {
+    return this.characterService.hardDelete(char_id);
   }
 }
