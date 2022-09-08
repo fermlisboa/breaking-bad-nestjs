@@ -1,0 +1,91 @@
+stages:
+ - dependencies
+ - lint
+ - jest
+ - build
+ - release
+
+cache:
+ key: $CI_COMMIT_REF_SLUG-$CI_PROJECT_DIR
+ paths:
+  - node_modules/
+
+### Basic global configurations
+default:
+  image: node
+  tags:
+    - #Here goes the tags related to git runners
+
+# This is the Job to install and check de dependencies.
+dependencies:
+ stage: dependencies
+ cache:
+    key: $CI_COMMIT_REF_SLUG-$CI_PROJECT_DIR
+    paths:
+      - node_modules/
+    policy: push
+
+ script:
+   # Install dependencies
+   - yarn install
+
+# This is the Job to run and check the eslint.
+eslint:
+ stage: lint
+ cache:
+    key: $CI_COMMIT_REF_SLUG-$CI_PROJECT_DIR
+    paths:
+      - node_modules/
+    policy: pull
+
+ needs:
+  - dependencies
+
+ script:
+   # Run eslint
+   - yarn eslint:check --max-warnings=0
+
+# # This is the Job to run and check the tests.
+test:
+ stage: jest
+ cache:
+    key: $CI_COMMIT_REF_SLUG-$CI_PROJECT_DIR
+    paths:
+      - node_modules/
+    policy: pull
+
+ needs:
+  - eslint
+
+ script:
+   # Run test
+   - yarn test
+
+build:
+  stage: build
+  image: docker
+  services:
+    - docker:dind
+  variables:
+    IMAGE_DESTINATION: $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA
+  only:
+    - main
+    - develop
+    - staging
+
+  script:
+    - echo $CI_REGISTRY_PASSWORD | docker login -u $CI_REGISTRY_USER $CI_REGISTRY --password-stdin
+    - docker build -t $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA .
+    - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA
+
+release_job:
+  stage: release
+  image: docker
+  services:
+    - docker:dind
+  rules:
+    - if: $CI_COMMIT_TAG
+  script:
+    - echo $CI_REGISTRY_PASSWORD | docker login -u $CI_REGISTRY_USER $CI_REGISTRY --password-stdin
+    - docker tag $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA $CI_REGISTRY_IMAGE:$CI_COMMIT_TAG
+    - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_TAG
