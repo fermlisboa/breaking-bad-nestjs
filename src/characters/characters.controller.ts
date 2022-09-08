@@ -14,7 +14,7 @@ import { DeleteResult } from 'typeorm';
 
 import { Characters } from './characters.entity';
 import { CharactersService } from './characters.service';
-import { CharacterCreateType } from './dto/charactersCreateSwagger';
+import { CharacterCreateType } from './dto/charactersCreateType';
 
 @ApiTags('Character')
 @Controller('characters')
