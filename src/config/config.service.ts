@@ -67,8 +67,6 @@ class ConfigService {
 
       ssl: this.isProduction(),
 
-      migrationsRun: this.migrationRun(),
-
       synchronize: this.isSynchronize(),
 
       logging: this.isLogging(),
