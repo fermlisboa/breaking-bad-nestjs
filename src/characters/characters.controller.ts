@@ -14,7 +14,7 @@ import { DeleteResult } from 'typeorm';
 
 import { Characters } from './characters.entity';
 import { CharactersService } from './characters.service';
-import { ICharacterCreateType } from './dto/charactersCreateType';
+import { CharacterCreateType } from './dto/charactersCreateSwagger';
 
 @ApiTags('Character')
 @Controller('characters')
@@ -44,7 +44,7 @@ export class CharactersController {
 
   @ApiResponse({ status: HttpStatus.CREATED, type: Characters })
   @Post()
-  async create(@Body() char: ICharacterCreateType): Promise<string | Characters> {
+  async create(@Body() char: CharacterCreateType): Promise<string | Characters> {
     const character = await this.characterService.findByName(char.name);
     if (Object.keys(character).length === 0) {
       return `We don't have any ${char.name} in this show`;

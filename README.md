@@ -13,7 +13,7 @@ This project was build with devcontainer to make easy to run in any computer. Yo
 ## Start the application
 
 In vscode click in the bottom left icon to open a remote window and select reopen in container.
-After that you need to run `yarn install` and to start the application use `yarn start:dev`
+After that you need to run `yarn install`, if your env variable RUN_MIGRATIONS is set to true, you need to run migration firts with `yarn typeorm:migration:run` first, but if POSTGRES_SYNCHRONIZE is set to true, you can just start the application using `yarn start:dev`
 
 ## Available Scripts
 
@@ -37,10 +37,6 @@ This command runs the eslint throught all the project and show all errors and wa
 ### `yarn test`
 
 This command runs the unit tests.
-
-### `yarn test:e2e`
-
-This command runs the end to end tests.
 
 ### `yarn test:cov`
 
