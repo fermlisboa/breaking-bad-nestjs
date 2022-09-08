@@ -3,7 +3,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { CharactersController } from './characters.controller';
 import { Characters } from './characters.entity';
 import { CharactersService } from './characters.service';
-import { CharacterCreateType } from './dto/charactersCreateSwagger';
+import { CharacterCreateType } from './dto/charactersCreateType';
 
 const findCharacter: Characters[] = [
   new Characters({
